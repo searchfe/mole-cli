@@ -1,8 +1,8 @@
 module.exports = {
     commands: {
         init: {
-            command: 'init',
-            desc: '初始化ala项目',
+            command: 'init <模块名>',
+            desc: '初始化molecule项目',
             options: [
                 {
                     param: '-f, --force',
@@ -20,6 +20,9 @@ module.exports = {
                 }, {
                     param: '-w, --watch',
                     desc: '启用watch服务'
+                }, {
+                    param: '-f, --gulpfile [file]',
+                    desc: '指定gulpfile路径'
                 }
             ]
         }

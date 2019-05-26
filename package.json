@@ -30,7 +30,6 @@
     "glob": "^7.1.4",
     "gulp": "^4.0.2",
     "gulp-amd-wrap": "0.0.4",
-    "gulp-cli": "^2.2.0",
     "gulp-deploy-http-push": "0.0.3",
     "gulp-less": "^4.0.1",
     "gulp-parse-to-html": "^1.0.1",
@@ -39,7 +38,6 @@
     "handlebars": "^4.1.2",
     "inquirer": "^6.3.1",
     "metalsmith": "^2.3.0",
-    "ora": "^3.4.0",
-    "replace-in-file": "^3.4.4"
+    "ora": "^3.4.0"
   }
 }

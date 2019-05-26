@@ -1,6 +1,6 @@
 {
   "name": "mole-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "cli for creating a molecule project",
   "main": "dist/index.js",
   "bin": "bin/mole.js",

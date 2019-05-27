@@ -1,5 +1,4 @@
 import * as ora from "ora";
-import * as replace from 'replace-in-file';
 import * as path from 'path';
 import * as fs from 'fs';
 import { sync } from 'rimraf';

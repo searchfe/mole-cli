@@ -3,7 +3,9 @@
   "version": "0.0.2",
   "description": "cli for creating a molecule project",
   "main": "dist/index.js",
-  "bin": "bin/mole.js",
+  "bin": {
+    "mole": "bin/mole.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,8 +1,12 @@
 import * as path from 'path';
 const { spawn } = require('child_process');
-const gulp = spawn('gulp');
 
 export async function run(option, args, program) {
+    let commandArgs:string[] = [];
+    if (option.watch) {
+        commandArgs.push('watch');
+    }
+    let gulp = spawn('gulp', commandArgs);
     gulp.stdout.on('data', function (data) {
         console.log(data.toString());
     });

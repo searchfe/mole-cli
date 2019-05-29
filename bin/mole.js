@@ -31,11 +31,11 @@ if (commands) {
                 let option = args[args.length - 1];
                 // 把args中多余的command对象删去
                 args = args.slice(0, -1);
-                // 检查cli版本是否需要更新
-                if (commandName !== 'upgrade') {
-                    // await upgrade.check();
+                try {
+                    await require('../dist/' + commandName).run(option, args, program);
+                } catch (error) {
+                    console.log(error);
                 }
-                await require('../dist/' + commandName).run(option, args, program);
             })
         
         // 为命令配置options

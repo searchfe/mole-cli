@@ -1,21 +1,20 @@
 import * as path from 'path';
-const { spawn } = require('child_process');
+import * as fs from "fs";
+import { spawn } from "child_process";
+import * as gulp from "mole-gulp";
+import { execCommand } from '../lib/util';
 
 export async function run(option, args, program) {
     let commandArgs:string[] = [];
-    if (option.watch) {
-        commandArgs.push('watch');
+    // 读取build命令目录下的package.json的name作为编译时的projectname
+    const packagePath = path.resolve('./package.json');
+    if (fs.existsSync(packagePath)) {
+        process.env.NODE_PROJECTNAME = require(packagePath).name;
+        await gulp({
+            'gulpfile': path.resolve(__dirname, './gulpfile.js'),
+            'cwd': path.resolve('./')
+        })
+    } else {
+        throw new Error("cannot find package.json");
     }
-    let gulp = spawn('gulp', commandArgs);
-    gulp.stdout.on('data', function (data) {
-        console.log(data.toString());
-    });
-
-    gulp.stderr.on('data', function (data) {
-        console.log('Error: ' + data.toString());
-    });
-
-    gulp.on('exit', function (code) {
-        console.log('child process exited with code ' + code.toString());
-    });
 }

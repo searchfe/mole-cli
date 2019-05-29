@@ -1,18 +1,18 @@
-const gulp = require('gulp')
-const path = require('path')
-const del = require('del')
-const ts = require('gulp-typescript')
-const tsProject = ts.createProject('tscompile.json')
-const less = require('gulp-less')
-const amd = require('gulp-amd-wrap').amdHook
-const httpPush = require('gulp-deploy-http-push').httpPush
-const toHtml = require('gulp-parse-to-html').parseToHtml
+const gulp = require('gulp');
+const path = require('path');
+const del = require('del');
+const ts = require('gulp-typescript');
+const tsProject = ts.createProject(path.resolve(__dirname, '../../config/tscompile.json'));
+const less = require('gulp-less');
+const amd = require('gulp-amd-wrap').amdHook;
+const httpPush = require('gulp-deploy-http-push').httpPush;
+const toHtml = require('gulp-parse-to-html').parseToHtml;
 const ts2php = require('gulp-ts2php').ts2php;
-const ts2phpConfig = require('./ts2phprc').config;
+const projectName = process.env.NODE_PROJECTNAME;
 
 gulp.task('build:clean', function () {
-    return del(['dist/**/*'])
-})
+    return del(['dist/**/*']);
+});
 
 gulp.task('build:css', function () {
     return gulp.src(['src/**/*.less'])
@@ -20,8 +20,8 @@ gulp.task('build:css', function () {
         .pipe(toHtml({
             type: 'style'
         }))
-        .pipe(gulp.dest('dist'))
-})
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('build:ts', function () {
     return gulp.src(['src/static/**/*.ts'], {
@@ -30,42 +30,60 @@ gulp.task('build:ts', function () {
         .pipe(tsProject())
         .pipe(amd({
             baseUrl: path.resolve('./src/static/script/'),
-            prefix: '@molecule/toptip',
+            prefix: '@molecule/' + projectName,
             // 不参与amd-hook分析的文件
             exlude: ['/dist/**']
         }))
         .pipe(toHtml({
             type: 'script'
         }))
-        .pipe(gulp.dest('dist'))
-})
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('build:tpl', function () {
     return gulp.src(['src/**/*.tpl'])
-        .pipe(gulp.dest('dist'))
-})
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('build:php', function () {
     return gulp.src(['src/index.ts'])
-        .pipe(ts2php(ts2phpConfig))
-        .pipe(gulp.dest('dist'))
-})
+        .pipe(ts2php({
+            getNamespace: () => 'molecules\\' + projectName,
+            compilerOptions: {
+                "target": "es6",
+                "module": "CommonJS",
+                "sourceMap": true,
+                "outDir": "dist",
+                "declaration": true,
+                "allowSyntheticDefaultImports": true,
+                "resolveJsonModule": true,
+                "strict": true,
+                "suppressImplicitAnyIndexErrors": true
+            },
+            modules: {
+                '@baidu/molecule': {
+                    required: true
+                }
+            }
+        }))
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('deploy', function () {
     // 测试环境的url
-    const HOST = require('./dev.config').receiver
+    const HOST = require('./dev.config').receiver;
     return gulp.src(['dist/**'])
         .pipe(httpPush([
             {
                 host: HOST,
                 match: '/**/*',
-                to: '/home/work/odp/template/molecules/toptip'
+                to: '/home/work/odp/template/molecules/' + projectName
             }
-        ]))
-})
+        ]));
+});
 
 gulp.task('watch', function () {
-    gulp.watch('./src/**', gulp.series('default', 'deploy'))
-})
+    gulp.watch('./src/**', gulp.series('default', 'deploy'));
+});
 
-gulp.task('default', gulp.series('build:clean', gulp.parallel('build:css', 'build:ts', 'build:tpl', 'build:php')))
+gulp.task('default', gulp.series('build:clean', gulp.parallel('build:css', 'build:ts', 'build:tpl', 'build:php')));

@@ -3,26 +3,31 @@ module.exports = {
         init: {
             command: 'init <模块名>',
             desc: '初始化molecule项目',
-            options: [
-                {
-                    param: '-f, --force',
-                    desc: '强制重新初始化'
-                }
-            ]
+            options: []
         },
         build: {
-            command: 'build',
+            command: 'build [task名...]',
             desc: '构建项目',
             options: [
                 {
-                    param: '-n, --no-compress',
-                    desc: '不压缩， 【默认】压缩'
+                    param: '--cwd [path]',
+                    desc: '指定一个新的cwd (当前工作目录)'
                 }, {
-                    param: '-w, --watch',
-                    desc: '启用watch服务'
+                    param: '-T, --tasks',
+                    desc: '查看gulp task'
                 }, {
                     param: '-f, --gulpfile [file]',
                     desc: '指定gulpfile路径'
+                }
+            ]
+        },
+        lint: {
+            command: 'lint',
+            desc: '检查代码规范',
+            options: [
+                {
+                    param: '--fix',
+                    desc: '自动修复lint问题'
                 }
             ]
         }

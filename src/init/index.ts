@@ -6,6 +6,9 @@ import * as glob from 'glob';
 import { getRepo } from '../lib/download';
 import { generate, Meta } from '../lib/generator';
 import * as inquirer from 'inquirer';
+import { execCommand } from "../lib/util";
+import { check } from "../lib/checkVersion";
+import chalk from 'chalk'
 
 export async function run(option, args, program) {
     let template = args[0];
@@ -14,7 +17,7 @@ export async function run(option, args, program) {
         program.help();
         return
     }
-
+    await check()
     const list = glob.sync('*');
     let rootName = path.basename(process.cwd());
     if (list.length) {
@@ -23,7 +26,7 @@ export async function run(option, args, program) {
             const isDir = fs.statSync(fileName).isDirectory()
             return name.indexOf(projectName) !== -1 && isDir
         }).length !== 0) {
-            console.log(`项目${projectName}已经存在`)
+            chalk.red(`项目${projectName}已经存在`)
             let answers: CoverAnswers = await inquirer.prompt([
                 {
                     type: 'confirm',
@@ -82,6 +85,8 @@ export async function run(option, args, program) {
         let projectConfig = await inquirer.prompt(questions);
         projectConfig['Uppername'] = projectConfig['projectName'].replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
         await generate(projectConfig, initPath, initPath);
+        console.log(chalk.yellow('初始化完成，执行以下命令就可以开发拉~'))
+        console.log(chalk.green('cd ' + initPath + '\nnpm install\nmole build'))
     }
 }
 

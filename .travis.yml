@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - lts/*
+branches:
+  only:
+  - master
+install:
+  - npm install
+script:
+  - npm test test/**/*.ts
+  - npm run build
+after_success:
+  - npm run coveralls
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - npx semantic-release

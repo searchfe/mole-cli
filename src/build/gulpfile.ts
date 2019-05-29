@@ -10,11 +10,11 @@ const toHtml = require('gulp-parse-to-html').parseToHtml;
 const ts2php = require('gulp-ts2php').ts2php;
 const projectName = process.env.NODE_PROJECTNAME;
 
-gulp.task('build:clean', function () {
+gulp.task('clean', function () {
     return del(['dist/**/*']);
 });
 
-gulp.task('build:css', function () {
+gulp.task('css', function () {
     return gulp.src(['src/**/*.less'])
         .pipe(less())
         .pipe(toHtml({
@@ -23,7 +23,7 @@ gulp.task('build:css', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build:ts', function () {
+gulp.task('ts', function () {
     return gulp.src(['src/static/**/*.ts'], {
         base: './src'
     })
@@ -40,12 +40,12 @@ gulp.task('build:ts', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build:tpl', function () {
+gulp.task('tpl', function () {
     return gulp.src(['src/**/*.tpl'])
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build:php', function () {
+gulp.task('php', function () {
     return gulp.src(['src/index.ts'])
         .pipe(ts2php({
             getNamespace: () => 'molecules\\' + projectName,
@@ -86,4 +86,4 @@ gulp.task('watch', function () {
     gulp.watch('./src/**', gulp.series('default', 'deploy'));
 });
 
-gulp.task('default', gulp.series('build:clean', gulp.parallel('build:css', 'build:ts', 'build:tpl', 'build:php')));
+gulp.task('default', gulp.series('clean', gulp.parallel('css', 'ts', 'tpl', 'php')));

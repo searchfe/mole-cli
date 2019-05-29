@@ -52,7 +52,7 @@
     "handlebars": "^4.1.2",
     "inquirer": "^6.3.1",
     "metalsmith": "^2.3.0",
-    "mole-gulp": "0.0.3-0",
+    "mole-gulp": "0.0.3",
     "ora": "^3.4.0",
     "request-promise": "^4.2.4",
     "semver": "^6.1.1"

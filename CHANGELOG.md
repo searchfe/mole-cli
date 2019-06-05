@@ -1,3 +1,10 @@
+## [0.0.6](https://github.com/searchfe/mole-cli/compare/v0.0.5...v0.0.6) (2019-06-05)
+
+
+### Performance Improvements
+
+* clean files ([602569c](https://github.com/searchfe/mole-cli/commit/602569c))
+
 ## [0.0.5](https://github.com/searchfe/mole-cli/compare/v0.0.4...v0.0.5) (2019-06-05)
 
 

@@ -1,17 +1,18 @@
 {
   "name": "mole-cli",
-  "version": "0.0.4",
+  "version": "0.0.0-development",
   "description": "cli for creating a molecule project",
   "main": "dist/index.js",
   "bin": {
     "mole": "bin/mole.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/searchfe/mole-cli.git"
+    "url": "https://github.com/searchfe/mole-cli.git"
   },
   "author": "chaiyanchen@baidu.com",
   "license": "MIT",

@@ -20,6 +20,13 @@
     "url": "https://github.com/searchfe/mole-cli/issues"
   },
   "homepage": "https://github.com/searchfe/mole-cli#readme",
+  "files": [
+    "dist",
+    "config",
+    "bin",
+    "*.json",
+    "*.md"
+  ],
   "dependencies": {
     "@types/eslint": "^4.16.6",
     "@types/gulp": "^4.0.6",

@@ -27,10 +27,13 @@ cli for creating a molecule project
 ```
 
 Options:
-  --cwd [path]           指定一个新的cwd (当前工作目录)
-  -T, --tasks            查看gulp task
-  -f, --gulpfile [file]  指定gulpfile路径
-  -h, --help             output usage information
+
+| options           | Description |
+|--------------------|-------------|
+| --cwd [path] | 指定一个新的cwd (当前工作目录) |
+| -T, --tasks | 查看gulp task |
+| -f, --gulpfile [file] | 指定gulpfile路径 |
+| -h, --help | output usage information |
 
 ### lint 代码规范
 
@@ -39,5 +42,8 @@ Options:
 ```
 
 Options:
-  --fix       自动修复lint问题
-  -h, --help  output usage information
+
+| options           | Description |
+|--------------------|-------------|
+| --fix | 自动修复lint问题 |
+| -h, --help | output usage information |
